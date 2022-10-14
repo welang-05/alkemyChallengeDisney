@@ -15,12 +15,10 @@ public class Personaje {
     private long id;
 
     private String imagen, nombre, historia;
-
     private int edad;
-
     private long peso;
-
-    @ManyToMany(mappedBy="personajes", fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "Personaje_Filme", joinColumns = {@JoinColumn(name="personaje_id")}, inverseJoinColumns = {@JoinColumn(name="filme_id")})
     private Set<Filme> filmes = new HashSet<>();
 
     public Personaje () { }
@@ -83,5 +81,9 @@ public class Personaje {
 
     public void setFilmes(Set<Filme> filmes) {
         this.filmes = filmes;
+    }
+
+    public void addFilme(Filme filme){
+        this.filmes.add(filme);
     }
 }
