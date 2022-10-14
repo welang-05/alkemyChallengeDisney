@@ -5,9 +5,7 @@ import Alkemy.Disney.models.Genero;
 import Alkemy.Disney.models.Personaje;
 
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class FilmeDTO {
@@ -15,7 +13,7 @@ public class FilmeDTO {
     private String imagen, titulo;
     private LocalDate fechaCreacion;
     private int calificacion;
-    private List<PersonajeDTO> personajes;
+    private List<String> listaPersonajes;
     private Genero genero;
 
     public FilmeDTO(){}
@@ -26,7 +24,7 @@ public class FilmeDTO {
         this.titulo=filme.getTitulo();
         this.fechaCreacion=filme.getFechaCreacion();
         this.calificacion= filme.getCalificacion();
-        this.personajes=filme.getPersonajes().stream().map(PersonajeDTO::new).collect(Collectors.toList());;
+        this.listaPersonajes =filme.getPersonajes().stream().map(Personaje::getNombre).collect(Collectors.toList());;
     }
 
     public long getId() {
@@ -49,8 +47,8 @@ public class FilmeDTO {
         return calificacion;
     }
 
-    public List<PersonajeDTO> getPersonajes() {
-        return personajes;
+    public List<String> getListaPersonajes() {
+        return listaPersonajes;
     }
 
     public Genero getGenero() {

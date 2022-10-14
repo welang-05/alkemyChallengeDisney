@@ -36,6 +36,7 @@ public class AlkemyDisneyApiApplication {
 
 			filme1.addPersonaje(personaje1);
 			filmeRepository.save(filme1);
+			personajeRepository.save(personaje1);
 
 		};
 	}

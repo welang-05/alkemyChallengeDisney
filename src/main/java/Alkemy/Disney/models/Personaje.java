@@ -12,7 +12,7 @@ public class Personaje {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
-    private long id;
+    private Long id;
 
     private String imagen, nombre, historia;
     private int edad;
