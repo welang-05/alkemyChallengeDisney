@@ -16,7 +16,7 @@ public class Personaje {
 
     private String imagen, nombre, historia;
     private int edad;
-    private long peso;
+    private float peso;
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "Personaje_Filme", joinColumns = {@JoinColumn(name="personaje_id")}, inverseJoinColumns = {@JoinColumn(name="filme_id")})
     private Set<Filme> filmes = new HashSet<>();
@@ -31,7 +31,7 @@ public class Personaje {
         this.peso = peso;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -67,7 +67,7 @@ public class Personaje {
         this.edad = edad;
     }
 
-    public long getPeso() {
+    public float getPeso() {
         return peso;
     }
 

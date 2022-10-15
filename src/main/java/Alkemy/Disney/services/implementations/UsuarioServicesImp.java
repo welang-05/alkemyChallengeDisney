@@ -13,8 +13,13 @@ public class UsuarioServicesImp implements UsuarioServices {
     UsuarioRepository usuarioRepository;
 
     @Override
-    public Usuario findUsuarioByEmail(String email){
+    public Usuario getUsuarioByEmail(String email){
         return usuarioRepository.findByEmail(email);
+    }
+
+    @Override
+    public void saveUser(Usuario usuario){
+        usuarioRepository.save(usuario);
     }
 
 }

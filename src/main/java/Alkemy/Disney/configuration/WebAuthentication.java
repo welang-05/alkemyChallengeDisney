@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
@@ -25,7 +26,7 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
 
         auth.userDetailsService(inputEmail-> {
 
-            Usuario usuario = usuarioServices.findUsuarioByEmail(inputEmail);
+            Usuario usuario = usuarioServices.getUsuarioByEmail(inputEmail);
 
             if (usuario != null) {
 
@@ -44,9 +45,9 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public DelegatingPasswordEncoder passwordEncoder() {
 
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        return (DelegatingPasswordEncoder) PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
     }
 

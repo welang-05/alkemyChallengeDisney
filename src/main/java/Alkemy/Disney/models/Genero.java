@@ -32,7 +32,7 @@ public class Genero {
         this.filmes = filmes;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

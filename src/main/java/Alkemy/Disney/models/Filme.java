@@ -58,7 +58,7 @@ public class Filme {
         this.genero = genero;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

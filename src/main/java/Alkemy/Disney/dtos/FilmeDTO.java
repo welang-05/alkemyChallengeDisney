@@ -13,8 +13,8 @@ public class FilmeDTO {
     private String imagen, titulo;
     private LocalDate fechaCreacion;
     private int calificacion;
-    private List<String> listaPersonajes;
-    private Genero genero;
+    private List<Object> listaPersonajes;
+    private String genero;
 
     public FilmeDTO(){}
 
@@ -24,7 +24,18 @@ public class FilmeDTO {
         this.titulo=filme.getTitulo();
         this.fechaCreacion=filme.getFechaCreacion();
         this.calificacion= filme.getCalificacion();
-        this.listaPersonajes =filme.getPersonajes().stream().map(Personaje::getNombre).collect(Collectors.toList());;
+        this.listaPersonajes =filme.getPersonajes().stream().map(Personaje::getNombre).collect(Collectors.toList());
+        this.genero=filme.getGenero().getName();
+    }
+
+    public FilmeDTO(Filme filme, boolean True){
+        this.id= filme.getId();
+        this.imagen=filme.getImagen();
+        this.titulo=filme.getTitulo();
+        this.fechaCreacion=filme.getFechaCreacion();
+        this.calificacion= filme.getCalificacion();
+        this.listaPersonajes =filme.getPersonajes().stream().map(PersonajeDTO::new).collect(Collectors.toList());
+        this.genero=filme.getGenero().getName();
     }
 
     public long getId() {
@@ -47,11 +58,11 @@ public class FilmeDTO {
         return calificacion;
     }
 
-    public List<String> getListaPersonajes() {
+    public List<Object> getListaPersonajes() {
         return listaPersonajes;
     }
 
-    public Genero getGenero() {
+    public String getGenero() {
         return genero;
     }
 }

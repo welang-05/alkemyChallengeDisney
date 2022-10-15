@@ -1,5 +1,6 @@
 package Alkemy.Disney.dtos;
 
+import Alkemy.Disney.models.Filme;
 import Alkemy.Disney.models.Personaje;
 
 import java.util.HashSet;
@@ -11,12 +12,22 @@ public class PersonajeDTO {
     private long id;
     private String imagen, nombre, historia;
     private int edad;
-    private long peso;
-    private List<FilmeDTO> filmes;
+    private float peso;
+    private List<Object> filmes;
 
     public PersonajeDTO(){}
 
     public PersonajeDTO(Personaje personaje){
+        this.id=personaje.getId();
+        this.imagen= personaje.getImagen();
+        this.nombre= personaje.getNombre();
+        this.historia= personaje.getHistoria();
+        this.edad= personaje.getEdad();
+        this.peso= personaje.getPeso();
+        this.filmes=personaje.getFilmes().stream().map(Filme::getTitulo).collect(Collectors.toList());
+    }
+
+    public PersonajeDTO(Personaje personaje, boolean True){
         this.id=personaje.getId();
         this.imagen= personaje.getImagen();
         this.nombre= personaje.getNombre();
@@ -46,11 +57,11 @@ public class PersonajeDTO {
         return edad;
     }
 
-    public long getPeso() {
+    public float getPeso() {
         return peso;
     }
 
-    public List<FilmeDTO> getFilmes() {
+    public List<Object> getFilmes() {
         return filmes;
     }
 }

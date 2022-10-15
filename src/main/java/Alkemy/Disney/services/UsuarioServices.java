@@ -4,6 +4,8 @@ import Alkemy.Disney.models.Usuario;
 
 public interface UsuarioServices {
 
-    Usuario findUsuarioByEmail(String email);
+    Usuario getUsuarioByEmail(String email);
+
+    void saveUser(Usuario usuario);
 
 }

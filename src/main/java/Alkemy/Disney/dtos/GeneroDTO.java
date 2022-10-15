@@ -17,7 +17,7 @@ public class GeneroDTO {
         this.id=genero.getId();
         this.imagen=genero.getImagen();
         this.name=genero.getName();
-        this.filmes=genero.getFilmes().stream().map(FilmeDTO::new).collect(Collectors.toList());
+        this.filmes=genero.getFilmes().stream().map(Filme -> new FilmeDTO(Filme,true)).collect(Collectors.toList());
     }
 
     public long getId() {

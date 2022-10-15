@@ -19,4 +19,24 @@ public class PersonajeServicesImp implements PersonajeServices {
         return personajeRepository.findAll();
     }
 
+    @Override
+    public List<Personaje> getByNombre(String nombre){
+        return personajeRepository.findByNombre(nombre);
+    }
+
+    @Override
+    public List<Personaje> getByEdad(int edad){
+        return personajeRepository.findByEdad(edad);
+    }
+
+    @Override
+    public List<Personaje> getByFilme(String filme){
+        return personajeRepository.findByFilmes_Titulo(filme);
+    }
+
+    @Override
+    public List<Personaje> getByPeso(float peso){
+        return personajeRepository.findByPeso(peso);
+    }
+
 }

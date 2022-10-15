@@ -1,4 +1,8 @@
 package Alkemy.Disney.services.implementations;
 
-public class GeneroServicesImp {
+import Alkemy.Disney.services.GeneroServices;
+import org.springframework.stereotype.Service;
+
+@Service
+public class GeneroServicesImp implements GeneroServices {
 }
