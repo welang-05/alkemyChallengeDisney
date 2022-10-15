@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Usuario {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
@@ -18,9 +18,9 @@ public class Usuario {
     private String email;
     private String password;
 
-    public Usuario(){}
+    public User(){}
 
-    public Usuario(String nombre, String password) {
+    public User(String nombre, String password) {
         this.email = nombre;
         this.password = password;
     }

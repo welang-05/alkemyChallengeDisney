@@ -22,7 +22,7 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests()
                 .antMatchers(HttpMethod.POST,"/auth/register").permitAll()
                 .antMatchers("/web/**/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/characters").hasAuthority("USER")
+                .antMatchers(HttpMethod.GET, "/characters").hasAuthority("USER")
         ;
 
         http.formLogin()
@@ -30,9 +30,9 @@ public class SecurityConfiguration {
 
                 .passwordParameter("password")
 
-                .loginPage("/api/login"); //Controlador del login
+                .loginPage("/auth/login"); //Controlador del login
 
-        http.logout().logoutUrl("/api/logout");
+        http.logout().logoutUrl("/auth/logout");
 
 
         // turn off checking for CSRF tokens

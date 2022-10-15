@@ -1,13 +1,13 @@
 package Alkemy.Disney;
 
-import Alkemy.Disney.models.Filme;
-import Alkemy.Disney.models.Genero;
-import Alkemy.Disney.models.Personaje;
-import Alkemy.Disney.models.Usuario;
-import Alkemy.Disney.repositories.FilmeRepository;
-import Alkemy.Disney.repositories.GeneroRepository;
-import Alkemy.Disney.repositories.PersonajeRepository;
-import Alkemy.Disney.services.UsuarioServices;
+import Alkemy.Disney.models.Film;
+import Alkemy.Disney.models.Genre;
+import Alkemy.Disney.models.Character;
+import Alkemy.Disney.models.User;
+import Alkemy.Disney.repositories.FilmRepository;
+import Alkemy.Disney.repositories.GenreRepository;
+import Alkemy.Disney.repositories.CharacterRepository;
+import Alkemy.Disney.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -28,24 +28,24 @@ public class AlkemyDisneyApiApplication {
 	}
 
 	@Bean
-	public CommandLineRunner initData(FilmeRepository filmeRepository, GeneroRepository generoRepository, PersonajeRepository personajeRepository, UsuarioServices usuarioServices){
+	public CommandLineRunner initData(FilmRepository filmRepository, GenreRepository genreRepository, CharacterRepository characterRepository, UserServices userServices){
 		return (args) -> {
-			Personaje personaje1 = new Personaje("https://static.tvtropes.org/pmwiki/pub/images/simba_4.png", "Simba","Un huérfano que se convirtió en rey", 5, 160);
-			personajeRepository.save(personaje1);
+			Character character1 = new Character("https://static.tvtropes.org/pmwiki/pub/images/simba_4.png", "Simba","Un huérfano que se convirtió en rey", 5, 160);
+			characterRepository.save(character1);
 
-			Genero genero1 = new Genero("Musical", "as");
-			generoRepository.save(genero1);
+			Genre genre1 = new Genre("Musical", "as");
+			genreRepository.save(genre1);
 
-			Filme filme1 = new Filme("as", "El Rey León", LocalDate.of(1994, 6, 24), 1, genero1);
+			Film film1 = new Film("as", "El Rey León", LocalDate.of(1994, 6, 24), 1, genre1);
 
-			genero1.addFilme(filme1);
-			generoRepository.save(genero1);
+			genre1.addFilm(film1);
+			genreRepository.save(genre1);
 
-			filme1.addPersonaje(personaje1);
-			filmeRepository.save(filme1);
-			personajeRepository.save(personaje1);
+			film1.addCharacter(character1);
+			filmRepository.save(film1);
+			characterRepository.save(character1);
 
-			usuarioServices.saveUser(new Usuario("Walt@disney.com",passwordEncoder.encode("mouse")));
+			userServices.saveUser(new User("Walt@disney.com",passwordEncoder.encode("mouse")));
 
 		};
 	}

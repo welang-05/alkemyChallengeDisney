@@ -1,12 +1,12 @@
 package Alkemy.Disney.repositories;
 
-import Alkemy.Disney.models.Usuario;
+import Alkemy.Disney.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
-public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    Usuario findByEmail(String email);
+    User findByEmail(String email);
 
 }
