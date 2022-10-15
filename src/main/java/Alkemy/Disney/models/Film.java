@@ -18,10 +18,10 @@ public class Film {
     private String image, title;
     private LocalDate creationDate;
     private int score;
-    @ManyToMany(mappedBy = "filmes")
+    @ManyToMany(mappedBy = "films")
     private Set<Character> characters = new HashSet<>();
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "genero_id")
+    @JoinColumn(name = "genre_id")
     private Genre genre;
 
     public Film(){ }
@@ -98,7 +98,7 @@ public class Film {
         return characters;
     }
 
-    public void setPersonajes(Set<Character> characters) {
+    public void setCharacters(Set<Character> characters) {
         this.characters = characters;
     }
 
@@ -112,6 +112,6 @@ public class Film {
 
     public void addCharacter(Character character){
         this.characters.add(character);
-        character.addFilme(this);
+        character.addFilm(this);
     }
 }

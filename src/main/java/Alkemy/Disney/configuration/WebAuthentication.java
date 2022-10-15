@@ -1,7 +1,7 @@
 package Alkemy.Disney.configuration;
 
-import Alkemy.Disney.models.User;
-import Alkemy.Disney.services.UserServices;
+import Alkemy.Disney.models.Client;
+import Alkemy.Disney.services.ClientServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
 
     @Autowired
-    UserServices userServices;
+    ClientServices clientServices;
 
 
     @Override
@@ -24,17 +24,17 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
 
         auth.userDetailsService(inputEmail-> {
 
-            User user = userServices.getUserByEmail(inputEmail);
+            Client client = clientServices.getUserByEmail(inputEmail);
 
-            if (user != null) {
+            if (client != null) {
 
-                return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
+                return new org.springframework.security.core.userdetails.User(client.getEmail(), client.getPassword(),
 
                         AuthorityUtils.createAuthorityList("USER"));
 
             } else {
 
-                throw new UsernameNotFoundException("Unknown user: " + inputEmail);
+                throw new UsernameNotFoundException("Unknown client: " + inputEmail);
 
             }
 

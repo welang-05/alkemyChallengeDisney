@@ -18,7 +18,7 @@ public class Character {
     private int age;
     private float weight;
     @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "Personaje_Filme", joinColumns = {@JoinColumn(name="personaje_id")}, inverseJoinColumns = {@JoinColumn(name="filme_id")})
+    @JoinTable(name = "Character_Film", joinColumns = {@JoinColumn(name="character_id")}, inverseJoinColumns = {@JoinColumn(name="film_id")})
     private Set<Film> films = new HashSet<>();
 
     public Character() { }
@@ -79,11 +79,11 @@ public class Character {
         return films;
     }
 
-    public void setFilmes(Set<Film> films) {
+    public void setFilms(Set<Film> films) {
         this.films = films;
     }
 
-    public void addFilme(Film film){
+    public void addFilm(Film film){
         this.films.add(film);
     }
 }

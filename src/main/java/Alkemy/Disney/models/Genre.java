@@ -15,7 +15,7 @@ public class Genre {
     private Long id;
 
     private String name, image;
-    @OneToMany(mappedBy = "genero", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "genre", fetch=FetchType.EAGER)
     private Set<Film> films = new HashSet<>();
 
     public Genre() {  }

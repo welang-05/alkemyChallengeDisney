@@ -1,13 +1,13 @@
 package Alkemy.Disney;
 
+import Alkemy.Disney.models.Client;
 import Alkemy.Disney.models.Film;
 import Alkemy.Disney.models.Genre;
 import Alkemy.Disney.models.Character;
-import Alkemy.Disney.models.User;
 import Alkemy.Disney.repositories.FilmRepository;
 import Alkemy.Disney.repositories.GenreRepository;
 import Alkemy.Disney.repositories.CharacterRepository;
-import Alkemy.Disney.services.UserServices;
+import Alkemy.Disney.services.ClientServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -28,7 +28,7 @@ public class AlkemyDisneyApiApplication {
 	}
 
 	@Bean
-	public CommandLineRunner initData(FilmRepository filmRepository, GenreRepository genreRepository, CharacterRepository characterRepository, UserServices userServices){
+	public CommandLineRunner initData(FilmRepository filmRepository, GenreRepository genreRepository, CharacterRepository characterRepository, ClientServices clientServices){
 		return (args) -> {
 			Character character1 = new Character("https://static.tvtropes.org/pmwiki/pub/images/simba_4.png", "Simba","Un huérfano que se convirtió en rey", 5, 160);
 			characterRepository.save(character1);
@@ -45,7 +45,7 @@ public class AlkemyDisneyApiApplication {
 			filmRepository.save(film1);
 			characterRepository.save(character1);
 
-			userServices.saveUser(new User("Walt@disney.com",passwordEncoder.encode("mouse")));
+			clientServices.saveUser(new Client("Walt@disney.com",passwordEncoder.encode("mouse")));
 
 		};
 	}
