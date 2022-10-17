@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CharacterDTO {
-    private long id;
+    private Long id;
     private String image, name, history;
     private int age;
     private float weight;
@@ -35,7 +35,7 @@ public class CharacterDTO {
         this.films = character.getFilms().stream().map(FilmDTO::new).collect(Collectors.toList());
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

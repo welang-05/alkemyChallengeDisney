@@ -15,8 +15,18 @@ public class CharacterServicesImp implements CharacterServices {
     private CharacterRepository characterRepository;
 
     @Override
+    public Character getById(Long id){
+        return characterRepository.findById(id).orElse(null);
+    }
+
+    @Override
     public List<Character> getAllCharacters(){
         return characterRepository.findAll();
+    }
+
+    @Override
+    public void saveCharacter(Character character){
+        characterRepository.save(character);
     }
 
     @Override

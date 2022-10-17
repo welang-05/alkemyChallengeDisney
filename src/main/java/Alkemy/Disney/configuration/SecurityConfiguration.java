@@ -23,6 +23,7 @@ public class SecurityConfiguration {
                 .antMatchers(HttpMethod.POST,"/auth/register").permitAll()
                 .antMatchers("/web/**/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/characters").hasAuthority("USER")
+                .antMatchers(HttpMethod.POST, "/characters/**").hasAuthority("USER")
         ;
 
         http.formLogin()

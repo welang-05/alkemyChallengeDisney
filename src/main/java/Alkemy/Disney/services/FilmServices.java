@@ -16,4 +16,8 @@ public interface FilmServices {
 
     void deleteById(Long id);
 
+    void saveFilm(Film film);
+
+    Film geById(Long id);
+
 }

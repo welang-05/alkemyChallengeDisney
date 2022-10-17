@@ -8,6 +8,10 @@ public interface CharacterServices {
 
     List<Character> getAllCharacters();
 
+    void saveCharacter(Character character);
+
+    Character getById(Long id);
+
     List<Character> getByName(String name);
 
     List<Character> getByAge(int age);

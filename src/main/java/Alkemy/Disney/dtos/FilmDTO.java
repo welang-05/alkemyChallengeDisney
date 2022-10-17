@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FilmDTO {
-    private long id;
+    private Long id;
     private String image, title;
     private LocalDate creationDate;
     private int score;
@@ -37,7 +37,7 @@ public class FilmDTO {
         this.genre = film.getGenre().getName();
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

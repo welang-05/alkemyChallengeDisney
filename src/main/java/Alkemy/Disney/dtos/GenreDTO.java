@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class GenreDTO {
-    private long id;
+    private Long id;
     private String name, image;
     private List<FilmDTO> films;
 
@@ -19,7 +19,7 @@ public class GenreDTO {
         this.films = genre.getFilms().stream().map(Filme -> new FilmDTO(Filme,true)).collect(Collectors.toList());
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

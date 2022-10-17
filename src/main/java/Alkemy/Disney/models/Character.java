@@ -23,7 +23,7 @@ public class Character {
 
     public Character() { }
 
-    public Character(String image, String name, String history, int age, long weight) {
+    public Character(String image, String name, String history, int age, float weight) {
         this.image = image;
         this.name = name;
         this.history = history;
@@ -71,7 +71,7 @@ public class Character {
         return weight;
     }
 
-    public void setWeight(long weight) {
+    public void setWeight(float weight) {
         this.weight = weight;
     }
 
