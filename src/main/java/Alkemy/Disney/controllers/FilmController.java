@@ -57,19 +57,7 @@ public class FilmController {
             @RequestParam SortBy sortBy
             ){
 
-        List<FilmDTO> films;
-
-        if(name==null){
-            films = filmServices.getByGenre(genre).stream().map(film -> new FilmDTO(film, true)).collect(Collectors.toList());
-        }
-
-        if(genre==null){
-            films = filmServices.getByTitle(name).stream().map(film -> new FilmDTO(film, true)).collect(Collectors.toList());
-        }
-
-        if(genre!=null && name!=null){
-            films = filmServices.getByTitleAndGenre(name,genre).stream().map(film -> new FilmDTO(film, true)).collect(Collectors.toList());
-        }
+        List <FilmDTO> films = filmServices.getByTitleAndGenre(name,genre).stream().map(film -> new FilmDTO(film, true)).collect(Collectors.toList());
 
         if(sortBy==SortBy.ASC) {
             films.sort(Comparator.comparing(FilmDTO::getCreationDate));
