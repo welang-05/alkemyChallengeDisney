@@ -143,7 +143,7 @@ public class CharacterController {
 
 
     //  EDIT DATA
-    @PostMapping("/characters/edit")
+    @PatchMapping("/characters/edit")
     public ResponseEntity<Object> editCharacter(
             @RequestBody EditCharacterDTO editCharacterDTO
             ){
@@ -181,7 +181,7 @@ public class CharacterController {
 
 
     //  EDIT IMAGE
-    @PostMapping("/characters/editImage")
+    @PatchMapping("/characters/editImage")
     public ResponseEntity<Object> editCharacterImage(
             @RequestParam("image") MultipartFile image,
             @RequestParam Long id

@@ -1,5 +1,6 @@
 package Alkemy.Disney.controllers;
 
+import Alkemy.Disney.models.Film;
 import Alkemy.Disney.models.Genre;
 import Alkemy.Disney.services.FilmServices;
 import Alkemy.Disney.services.GenreServices;
@@ -57,6 +58,39 @@ public class GenreController {
 
         return new ResponseEntity<>("New genre added correctly", HttpStatus.CREATED);
 
+    }
+
+    @PostMapping("/genres/addFilm")
+    public ResponseEntity<Object> addFilmToGenre(
+            @RequestParam Long idFilm,
+            @RequestParam String nameGenre
+    ){
+        if(nameGenre==null){
+            return new ResponseEntity<>("Genre name not provided", HttpStatus.FORBIDDEN);
+        }
+
+        if(idFilm==null){
+            return new ResponseEntity<>("Film id not provided", HttpStatus.FORBIDDEN);
+        }
+
+        Genre genre = genreServices.getByName(nameGenre);
+
+        if(genre==null){
+            return new ResponseEntity<>("Genre "+nameGenre+" doesn't exist", HttpStatus.FORBIDDEN);
+        }
+
+        Film film = filmServices.getById(idFilm);
+
+        if(film==null){
+            return new ResponseEntity<>("Film doesn't exist", HttpStatus.FORBIDDEN);
+        }
+
+        genre.addFilm(film);
+
+        genreServices.saveGenre(genre);
+        filmServices.saveFilm(film);
+
+        return new ResponseEntity<>(film.getTitle()+" added to the"+nameGenre+" Genre", HttpStatus.OK);
     }
 
 }

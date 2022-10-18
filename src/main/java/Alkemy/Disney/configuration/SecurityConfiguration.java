@@ -23,7 +23,11 @@ public class SecurityConfiguration {
                 .antMatchers(HttpMethod.POST,"/auth/register").permitAll()
                 .antMatchers("/web/**/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/characters").hasAuthority("USER")
-                .antMatchers(HttpMethod.POST, "/characters/**").hasAuthority("USER")
+                .antMatchers(HttpMethod.GET, "/movies").hasAuthority("USER")
+                .antMatchers(HttpMethod.GET, "/genres").hasAuthority("USER")
+                .antMatchers("/characters/**").hasAuthority("USER")
+                .antMatchers("/movies/**").hasAuthority("USER")
+                .antMatchers("/genres/**").hasAuthority("USER")
         ;
 
         http.formLogin()

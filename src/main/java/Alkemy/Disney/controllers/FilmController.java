@@ -1,6 +1,5 @@
 package Alkemy.Disney.controllers;
 
-import Alkemy.Disney.dtos.EditCharacterDTO;
 import Alkemy.Disney.dtos.EditFilmDTO;
 import Alkemy.Disney.dtos.FilmDTO;
 import Alkemy.Disney.models.Character;
@@ -17,9 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -109,7 +106,7 @@ public class FilmController {
 
 
     //  EDIT DATA
-    @PostMapping("/movies/edit")
+    @PatchMapping("/movies/edit")
     public ResponseEntity<Object> editFilm(
             @RequestBody EditFilmDTO editFilmDTO
     ){
@@ -152,7 +149,7 @@ public class FilmController {
 
 
     //  EDIT IMAGE
-    @PostMapping("/movies/editImage")
+    @PatchMapping("/movies/editImage")
     public ResponseEntity<Object> editFilmImage(
             @RequestParam("image") MultipartFile image,
             @RequestParam Long id
