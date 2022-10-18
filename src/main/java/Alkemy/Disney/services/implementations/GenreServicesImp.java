@@ -24,4 +24,9 @@ public class GenreServicesImp implements GenreServices {
         return genreRepository.findByName(name);
     }
 
+    @Override
+    public void saveGenre(Genre genre){
+        genreRepository.save(genre);
+    }
+
 }

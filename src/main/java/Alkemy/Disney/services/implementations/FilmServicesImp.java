@@ -45,7 +45,7 @@ public class FilmServicesImp implements FilmServices {
     }
 
     @Override
-    public Film geById(Long id){
+    public Film getById(Long id){
         return filmRepository.findById(id).orElse(null);
     }
 }

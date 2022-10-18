@@ -10,4 +10,6 @@ public interface GenreServices {
 
     Genre getByName(String name);
 
+    void saveGenre(Genre genre);
+
 }

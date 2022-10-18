@@ -3,7 +3,9 @@ package Alkemy.Disney.controllers;
 import Alkemy.Disney.dtos.CharacterDTO;
 import Alkemy.Disney.dtos.EditCharacterDTO;
 import Alkemy.Disney.models.Character;
+import Alkemy.Disney.models.Film;
 import Alkemy.Disney.services.CharacterServices;
+import Alkemy.Disney.services.FilmServices;
 import Alkemy.Disney.services.uploadsServices.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,9 +24,12 @@ public class CharacterController {
     private CharacterServices characterServices;
 
     @Autowired
+    private FilmServices filmServices;
+
+    @Autowired
     private StorageService storageService;
 
-//  GET ALL CHARACTERS
+    //  GET ALL CHARACTERS
     @GetMapping("/characters")
     public List<Object> getCharacters()
     {
@@ -37,7 +42,7 @@ public class CharacterController {
     }
 
 
-//  GET PARTICULAR CHARACTER
+    //  GET PARTICULAR CHARACTER
     @GetMapping("/characters/details")
     public Object getCharacter(
             @RequestParam Long id
@@ -57,7 +62,7 @@ public class CharacterController {
     }
 
 
-//  FILTER BY NAME
+    //  FILTER BY NAME
     @GetMapping(value = "/characters", params = "name")
     public List<Object> getCharactersByName(
             @RequestParam String name
@@ -66,7 +71,7 @@ public class CharacterController {
     }
 
 
-//  FILTER BY AGE
+    //  FILTER BY AGE
     @GetMapping(value = "/characters", params = "age")
     public List<Object> getCharactersByAge(
             @RequestParam int age
@@ -75,7 +80,7 @@ public class CharacterController {
     }
 
 
-//  FILTER BY FILM
+    //  FILTER BY FILM
     @GetMapping(value = "/characters", params = "movies")
     public List<Object> getCharactersByFilm(
             @RequestParam String movies
@@ -84,7 +89,7 @@ public class CharacterController {
     }
 
 
-//  FILTER BY WEIGHT, AGE AND FILM
+    //  FILTER BY WEIGHT, AGE AND FILM
     @GetMapping(value = "/characters", params = {"weight","age","movie"})
     public List<Object> getCharactersByNameAndAge(
             @RequestParam float weight,
@@ -108,7 +113,7 @@ public class CharacterController {
     }
 
 
-//  CREATE CHARACTER
+    //  CREATE CHARACTER
     @PostMapping("/characters/add")
     public ResponseEntity<Object> addCharacter(
             @RequestParam("image") MultipartFile image,
@@ -125,7 +130,7 @@ public class CharacterController {
         if( !characterServices.getByName(name).isEmpty() ){
             return new ResponseEntity<>("The character already exists", HttpStatus.FORBIDDEN);
         }
-//      All Ok
+    //      All Ok
         storageService.store(image);
 
         Character character = new Character(storageService.load(image.getOriginalFilename()).toString(), name, history, age, weight);
@@ -137,7 +142,7 @@ public class CharacterController {
     }
 
 
-//  EDIT DATA
+    //  EDIT DATA
     @PostMapping("/characters/edit")
     public ResponseEntity<Object> editCharacter(
             @RequestBody EditCharacterDTO editCharacterDTO
@@ -175,7 +180,7 @@ public class CharacterController {
     }
 
 
-//  EDIT IMAGE
+    //  EDIT IMAGE
     @PostMapping("/characters/editImage")
     public ResponseEntity<Object> editCharacterImage(
             @RequestParam("image") MultipartFile image,
@@ -202,7 +207,7 @@ public class CharacterController {
 
     }
 
-//  DELETE CHARACTER
+    //  DELETE CHARACTER
     @DeleteMapping("/characters/delete")
     public ResponseEntity<Object> deleteCharacter(
             @RequestParam Long id
@@ -221,6 +226,40 @@ public class CharacterController {
         characterServices.deleteById(id);
 
         return new ResponseEntity<>("Character deleted correctly", HttpStatus.OK);
+    }
+
+    // ADD FILM TO CHARACTER
+    @PostMapping("/characters/addFilm")
+    public ResponseEntity<Object> addFilmToCharacter(
+            @RequestParam Long idFilm,
+            @RequestParam Long idCharacter
+    ){
+        if(idCharacter==null){
+            return new ResponseEntity<>("Character id not provided", HttpStatus.FORBIDDEN);
+        }
+
+        if(idFilm==null){
+            return new ResponseEntity<>("Film id not provided", HttpStatus.FORBIDDEN);
+        }
+
+        Film film = filmServices.getById(idFilm);
+
+        if(film==null){
+            return new ResponseEntity<>("The film doesn't exist", HttpStatus.FORBIDDEN);
+        }
+
+        Character character = characterServices.getById(idCharacter);
+
+        if(character==null){
+            return new ResponseEntity<>("The character doesn't exist", HttpStatus.FORBIDDEN);
+        }
+
+        film.addCharacter(character);
+
+        filmServices.saveFilm(film);
+        characterServices.saveCharacter(character);
+
+        return new ResponseEntity<>("Film added to character correctly", HttpStatus.OK);
     }
 
 }

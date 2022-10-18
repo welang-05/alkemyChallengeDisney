@@ -18,6 +18,6 @@ public interface FilmServices {
 
     void saveFilm(Film film);
 
-    Film geById(Long id);
+    Film getById(Long id);
 
 }

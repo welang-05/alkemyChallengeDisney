@@ -7,6 +7,7 @@ import Alkemy.Disney.models.Character;
 import Alkemy.Disney.models.Film;
 import Alkemy.Disney.models.Genre;
 import Alkemy.Disney.models.SortBy;
+import Alkemy.Disney.services.CharacterServices;
 import Alkemy.Disney.services.FilmServices;
 import Alkemy.Disney.services.GenreServices;
 import Alkemy.Disney.services.uploadsServices.StorageService;
@@ -29,6 +30,9 @@ public class FilmController {
 
     @Autowired
     private FilmServices filmServices;
+
+    @Autowired
+    private CharacterServices characterServices;
 
     @Autowired
     private GenreServices genreServices;
@@ -71,7 +75,7 @@ public class FilmController {
     }
 
     //  CREATE FILM
-    @PostMapping("/film/add")
+    @PostMapping("/movies/add")
     public ResponseEntity<Object> addFilm(
             @RequestParam("image") MultipartFile image,
             @RequestParam String title,
@@ -82,6 +86,10 @@ public class FilmController {
 
         if( image==null || title==null || creationDate==null || score<=0 || genre==null ){
             return new ResponseEntity<>("Missing some data", HttpStatus.FORBIDDEN);
+        }
+
+        if(score>5){
+            return new ResponseEntity<>("The score it's a number between 1 and 5", HttpStatus.FORBIDDEN);
         }
 
         if( !filmServices.getByTitle(title).isEmpty() ){
@@ -110,10 +118,14 @@ public class FilmController {
             return new ResponseEntity<>("Missing some data", HttpStatus.FORBIDDEN);
         }
 
-        Film film = filmServices.geById(editFilmDTO.getId());
+        Film film = filmServices.getById(editFilmDTO.getId());
 
         if(film==null){
             return new ResponseEntity<>("The film doesn't exist", HttpStatus.FORBIDDEN);
+        }
+
+        if(editFilmDTO.getScore()>5){
+            return new ResponseEntity<>("The score it's a number between 1 and 5", HttpStatus.FORBIDDEN);
         }
 
         if(editFilmDTO.getScore()>0){
@@ -150,7 +162,7 @@ public class FilmController {
             return new ResponseEntity<>("Film id not provided", HttpStatus.FORBIDDEN);
         }
 
-        Film film = filmServices.geById(id);
+        Film film = filmServices.getById(id);
 
         if(film==null){
             return new ResponseEntity<>("The film doesn't exist", HttpStatus.FORBIDDEN);
@@ -168,7 +180,7 @@ public class FilmController {
 
     //  DELETE FILM
     @DeleteMapping("/movies/delete")
-    public ResponseEntity<Object> deleteCharacter(
+    public ResponseEntity<Object> deleteFilm(
             @RequestParam Long id
     ){
 
@@ -176,7 +188,7 @@ public class FilmController {
             return new ResponseEntity<>("Film id not provided", HttpStatus.FORBIDDEN);
         }
 
-        Film film = filmServices.geById(id);
+        Film film = filmServices.getById(id);
 
         if(film==null){
             return new ResponseEntity<>("The film doesn't exist", HttpStatus.FORBIDDEN);
@@ -187,7 +199,39 @@ public class FilmController {
         return new ResponseEntity<>("Film deleted correctly", HttpStatus.OK);
     }
 
+    // ADD CHARACTER TO FILM
+    @PostMapping("/movies/addCharacter")
+    public ResponseEntity<Object> addCharacterToFilm(
+            @RequestParam Long idFilm,
+            @RequestParam Long idCharacter
+    ){
+        if(idCharacter==null){
+            return new ResponseEntity<>("Character id not provided", HttpStatus.FORBIDDEN);
+        }
 
+        if(idFilm==null){
+            return new ResponseEntity<>("Film id not provided", HttpStatus.FORBIDDEN);
+        }
+
+        Film film = filmServices.getById(idFilm);
+
+        if(film==null){
+            return new ResponseEntity<>("The film doesn't exist", HttpStatus.FORBIDDEN);
+        }
+
+        Character character = characterServices.getById(idCharacter);
+
+        if(character==null){
+            return new ResponseEntity<>("The character doesn't exist", HttpStatus.FORBIDDEN);
+        }
+
+        film.addCharacter(character);
+
+        filmServices.saveFilm(film);
+        characterServices.saveCharacter(character);
+
+        return new ResponseEntity<>("Character added to Film correctly", HttpStatus.OK);
+    }
 
 
 }
